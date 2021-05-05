@@ -1,2 +1,5 @@
 vendor
 docker-compose.yml
+index.php
+.cache
+.htaccess
