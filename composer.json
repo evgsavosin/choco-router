@@ -1,0 +1,25 @@
+{
+    "name": "evgsavosin/simple-routing",
+    "description": "Simple routing on regex expression.",
+    "keywords": ["routing", "simple-routing"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evgeny Savosin",
+            "email": "evg@savosin.dev"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleRouting\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}
