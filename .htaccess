@@ -1,8 +1,0 @@
-php_flag register_globals off
-
-Options -Indexes
-
-AddDefaultCharset UTF-8
-
-RewriteEngine On
-RewriteRule ^.*$ index.php [L]
