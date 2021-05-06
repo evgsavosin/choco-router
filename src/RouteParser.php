@@ -2,6 +2,8 @@
 
 namespace SimpleRouting;
 
+use SimpleRouting\Exception\BadRouteException;
+
 final class RouteParser
 {
     /**

@@ -21,7 +21,7 @@ class Route
      * 
      * @var string|callable $handler
      */
-    protected string $handler;
+    protected $handler;
 
     /**
      * Regex rules
