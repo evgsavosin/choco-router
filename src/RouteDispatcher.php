@@ -5,7 +5,7 @@ namespace SimpleRouting;
 class RouteDispatcher
 {
     /**
-     * @var array $route_collection
+     * @var array $routeCollection
      */
     protected array $routes;
 
