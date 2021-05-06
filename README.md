@@ -41,7 +41,7 @@ try {
     }
 }
 
-// Declaration function
+// Declare function
 function foo() {
   // ...
 }
