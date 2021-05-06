@@ -34,7 +34,8 @@ try {
       $_SERVER['REQUEST_URI']
     );
     
-    call_user_func($result['handler']);
+    // Call class method or function
+    call_user_func($result['handler'], $result['args']);
 } catch (HttpException $e) {
     if ($e->getCode() == HttpException::NOT_FOUND) {
         // Handle not found page
@@ -42,7 +43,7 @@ try {
 }
 
 // Declare function
-function foo() {
+function foo(array $args) {
   // ...
 }
 ```
@@ -58,3 +59,13 @@ $router->group('/foo', function () use ($router) {
     $router->map(['POST', 'GET'], '/bar/baz', 'foo');
 });
 ```
+
+Parameters:
+```php
+$router->get('/foo/{bar}/{baz?}', 'foo', [
+  'bar' => '[a-zA-Z]',
+  'baz' => '[0-9]'
+]);
+```
+
+> A question mark means the parameter is optional
