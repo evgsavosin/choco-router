@@ -7,6 +7,8 @@ namespace SimpleRouting\Matcher;
 use SimpleRouting\RouteExpression;
 
 use function preg_replace_callback;
+use function preg_match;
+use function preg_quote;
 
 class Matcher implements MatcherInterface
 {
