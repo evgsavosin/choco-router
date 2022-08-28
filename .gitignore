@@ -1,5 +1,6 @@
 vendor
 docker-compose.yml
+Dockerfile
 index.php
 .phpunit.result.cache
 phpunit.xml.bak
