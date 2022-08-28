@@ -20,7 +20,7 @@ use SimpleRouting\Router;
 use SimpleRouting\Exception\HttpException;
 
 // Create router instance
-$router = new Router;
+$router = new Router();
 
 // Add route with GET method
 $router->get('/foo', 'foo');

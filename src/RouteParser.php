@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php 
+
+declare(strict_types=1);
 
 namespace SimpleRouting;
 
@@ -11,12 +13,7 @@ final class RouteParser
      * Example: 
      * Uri: /test/{simple}, regex array ['simple' => ['[a-zA-Z]']], finalize - ~\/test\/[a-zA-Z]~
      * 
-     * @param string $uri
-     * @param array|null $regex
-     * 
      * @throws BadRouteException
-     * 
-     * @return string
      */
     public function make(string $uri, ?array &$regex = null): string
     {

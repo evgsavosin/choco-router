@@ -1,28 +1,18 @@
-<?php declare(strict_types=1);
+<?php 
+
+declare(strict_types=1);
 
 namespace SimpleRouting;
 
 class RouteDispatcher
 {
-    /**
-     * @var array $routeCollection
-     */
     protected array $routes;
 
-    /**
-     * Constructor
-     */
     public function __construct(array $routes)
     {
         $this->routes = $routes;
     }
 
-    /**
-     * @param string $httpMethod
-     * @param string $uri
-     * 
-     * @return array|null
-     */
     public function handle(string $httpMethod, string $uri): ?array
     {
         $routes = $this->routes;
@@ -59,12 +49,6 @@ class RouteDispatcher
         ];
     }
 
-    /**
-     * @param array|null $matches
-     * @param array|null $regex
-     * 
-     * @return array
-     */
     private function processArgs(?array $matches, ?array $regex): array
     {
         $i = 1;

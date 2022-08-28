@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php 
+
+declare(strict_types=1);
 
 namespace SimpleRouting;
 
@@ -6,28 +8,14 @@ use SimpleRouting\Exception\HttpException;
 
 final class Router 
 {
-    /**
-     * @var RouteCollection $routeCollection
-     */
     protected RouteCollection $routeCollection;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
-        $routeParser = new RouteParser;
+        $routeParser = new RouteParser();
         $this->routeCollection = new RouteCollection($routeParser);
     }
 
-    /**
-     * Short function of adding group
-     * 
-     * @param string $prefix 
-     * @param callable $callback
-     * 
-     * @return void
-     */
     public function group(string $prefix, callable $callback): void
     {
         $this->routeCollection->addGroup($prefix, $callback);
@@ -35,13 +23,6 @@ final class Router
 
     /**
      * Adding route with multiple HTTP methods to collection
-     * 
-     * @param array $httpMethods
-     * @param string $uri
-     * @param string|callable $handler
-     * @param array|null $regex
-     * 
-     * @return void
      */
     public function map(array $httpMethods, string $uri, $handler, ?array $regex = null): void
     {
@@ -52,13 +33,6 @@ final class Router
 
     /**
      * Adding route as GET to collection
-     * 
-     * @param array $httpMethods
-     * @param string $uri
-     * @param string|callable $handler
-     * @param array|null $regex
-     * 
-     * @return void
      */
     public function get(string $uri, $handler, ?array $regex = null): void
     {
@@ -67,13 +41,6 @@ final class Router
 
     /**
      * Adding route as POST to collection
-     * 
-     * @param array $httpMethods
-     * @param string $uri
-     * @param string|callable $handler
-     * @param array|null $regex
-     * 
-     * @return void
      */
     public function post(string $uri, $handler, ?array $regex = null): void
     {
@@ -82,13 +49,6 @@ final class Router
 
     /**
      * Adding route as DELETE to collection
-     *
-     * @param array $httpMethods
-     * @param string $uri
-     * @param string|callable $handler
-     * @param array|null $regex
-     * 
-     * @return void
      */
     public function delete(string $uri, $handler, ?array $regex = null): void
     {
@@ -97,13 +57,6 @@ final class Router
 
     /**
      * Adding route as PUT to collection
-     * 
-     * @param array $httpMethods
-     * @param string $uri
-     * @param string|callable $handler
-     * @param array|null $regex
-     * 
-     * @return void
      */
     public function put(string $uri, $handler, ?array $regex = null): void
     {
@@ -113,10 +66,6 @@ final class Router
     /**
      * @param string $httpMethod
      * @param string $uri
-     * 
-     * @throws HttpException
-     * 
-     * @return array
      */
     public function dispatch(?string $httpMethod = null, ?string $uri = null): array
     {

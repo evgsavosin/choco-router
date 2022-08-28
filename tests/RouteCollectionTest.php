@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php 
+
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use SimpleRouting\RouteCollection;
@@ -7,7 +9,7 @@ final class RouteCollectionTest extends TestCase
 {
     public function testRouteCreation(): void
     {
-        $routeCollection = new RouteCollection;
+        $routeCollection = new RouteCollection();
 
         $routeCollection->addRoute('GET', '/foo', 'foo');
         $routeCollection->addRoute('POST', '/foo/bar', 'foo-bar');

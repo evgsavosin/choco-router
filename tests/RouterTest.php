@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php 
+
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use SimpleRouting\Exception\HttpException;
@@ -8,7 +10,7 @@ final class RouterTest extends TestCase
 {
     public function testRouteDispatching(): void
     {
-        $router = new Router;
+        $router = new Router();
 
         $router->get('/foo/{bar}/', 'foo-bar', ['bar' => '[0-9]']);
         $result = $router->dispatch('GET', '/foo/1/');
@@ -18,7 +20,7 @@ final class RouterTest extends TestCase
 
     public function testRouteNotFound(): void
     {
-        $router = new Router;
+        $router = new Router();
 
         try {
             $router->dispatch('GET', '/foo');
