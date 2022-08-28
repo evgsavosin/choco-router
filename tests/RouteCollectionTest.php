@@ -27,6 +27,7 @@ final class RouteCollectionTest extends TestCase
         }
 
         $this->assertIsArray($currentRoutes);
+
         $this->assertSame($currentRoutes, [
             ['GET', '/foo'],
             ['POST', '/foo/bar'],

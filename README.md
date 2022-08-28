@@ -17,7 +17,7 @@ Basic usage:
 require 'vendor/autoload.php';
 
 use SimpleRouting\Router;
-use SimpleRouting\Exception\HttpException;
+use SimpleRouting\Exceptions\HttpException;
 
 // Create router instance
 $router = new Router();

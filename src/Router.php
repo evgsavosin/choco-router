@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleRouting;
 
-use SimpleRouting\Exception\HttpException;
+use SimpleRouting\Exceptions\HttpException;
+use SimpleRouting\Matcher\Matcher;
 
 final class Router 
 {
@@ -12,8 +13,9 @@ final class Router
 
     public function __construct()
     {
-        $routeParser = new RouteParser();
-        $this->routeCollection = new RouteCollection($routeParser);
+        $this->routeCollection = new RouteCollection(
+            new Matcher()
+        );
     }
 
     public function group(string $prefix, callable $callback): void

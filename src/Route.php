@@ -6,27 +6,29 @@ namespace SimpleRouting;
 
 class Route
 {
-    protected string $httpMethod;
-    protected string $uri;
-    protected $handler;
-    protected array $regex = [];
-
-    public function __construct(string $httpMethod, string|callable $uri, $handler, ?array $regex = null)
-    {
-        $this->httpMethod = $httpMethod;
-        $this->uri = $uri;
-        $this->handler = $handler;
-        $this->regex = $regex;
-    }
+    public function __construct(
+        protected string $httpMethod, 
+        protected RouteExpression $expression, 
+        protected $handler, 
+        protected ?array $regex = null
+    ) {}
 
     public function getHttpMethod(): string
     {
         return $this->httpMethod;
     }
 
+    /**
+     * @deprecated This method is deprecated and remove in future version
+     */
     public function getUri(): string
     {
-        return $this->uri;
+        return $this->expression->getPattern();
+    }
+
+    public function getExpression(): RouteExpression
+    {
+        return $this->expression;
     }
 
     public function getHandler(): callable|string

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use SimpleRouting\Exception\HttpException;
+use SimpleRouting\Exceptions\HttpException;
 use SimpleRouting\Router;
 
 final class RouterTest extends TestCase
@@ -12,7 +12,7 @@ final class RouterTest extends TestCase
     {
         $router = new Router();
 
-        $router->get('/foo/{bar}/', 'foo-bar', ['bar' => '[0-9]']);
+        $router->get('/foo/{bar}/', 'foo-bar', ['bar' => '[0-9]+']);
         $result = $router->dispatch('GET', '/foo/1/');
 
         $this->assertIsArray($result);

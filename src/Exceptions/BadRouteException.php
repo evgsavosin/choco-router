@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Exception;
+namespace SimpleRouting\Exceptions;
 
 use LogicException;
 

@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace SimpleRouting;
 
+use SimpleRouting\Matcher\Matcher;
+use SimpleRouting\Matcher\MatcherInterface;
+
 class RouteCollection
 {
     protected array $routes = [];
-    protected string $groupPrefix;
-    protected RouteParser $routeParser;
 
-    public function __construct(?RouteParser $routeParser = null)
-    {
-        $this->groupPrefix = '';
-        $this->routeParser = $routeParser ?? new RouteParser();
+    public function __construct(
+        protected ?MatcherInterface $matcher = null,
+        protected string $groupPrefix = ''
+    ) {
+        $this->matcher = $matcher ?? new Matcher();
     }
     
     public function getRoutes(): array
@@ -40,14 +42,13 @@ class RouteCollection
         $this->setGroupPrefix($oldGroupPrefix);
     }
 
-    public function addRoute(string $httpMethod, string $uri, $handler, ?array $regex = null): void
+    public function addRoute(string $httpMethod, string $uri, $handler, array $regex = []): void
     {
         $uri = $this->getGroupPrefix() . $uri;
-        $uri = $this->routeParser->make($uri, $regex);
 
         $this->routes[] = new Route(
             $httpMethod, 
-            $uri, 
+            $this->matcher->match($uri, $regex), 
             $handler,
             $regex
         );
