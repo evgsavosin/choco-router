@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
 use SimpleRouting\Dispatcher\DispatcherResult;
 use SimpleRouting\Exceptions\HttpException;
@@ -12,9 +14,9 @@ final class RouterTest extends TestCase
     public function testRouteDispatching(): void
     {
         $router = new Router();
-
-        $router->get('/foo/{bar}/', 'foo-bar', ['bar' => '[0-9]+']);
-        $result = $router->dispatch('GET', '/foo/1/');
+        $collection = $router->getCollection();
+        $collection->addRoute('GET', '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
+        $result = $router->dispatch('GET', '/foo/1');
 
         $this->assertInstanceOf(DispatcherResult::class, $result);
     }

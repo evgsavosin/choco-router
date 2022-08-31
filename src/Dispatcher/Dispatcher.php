@@ -6,7 +6,7 @@ namespace SimpleRouting\Dispatcher;
 
 use SimpleRouting\RouteCollection;
 
-class Dispatcher
+class Dispatcher implements DispatcherInterface
 {
     public function __construct(
         protected RouteCollection $collection

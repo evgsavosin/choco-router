@@ -48,15 +48,15 @@ class RouteCollection
         $this->setGroupPrefix($oldPrefix);
     }
 
-    public function addRoute(string $httpMethod, string $uri, mixed $handler, array $regex = []): void
+    public function addRoute(string $httpMethod, string $uri, mixed $handler, array $parameters = []): void
     {
         $uri = $this->getGroupPrefix() . $uri;
 
         $this->routes[] = new Route(
             $httpMethod, 
-            $this->matcher->match($uri, $regex), 
+            $this->matcher->match($uri, $parameters), 
             $handler,
-            $regex
+            $parameters
         );
     }
 }

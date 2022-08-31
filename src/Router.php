@@ -4,66 +4,36 @@ declare(strict_types=1);
 
 namespace SimpleRouting;
 
+use SimpleRouting\Attribute\AttributeLoader;
 use SimpleRouting\Dispatcher\{Dispatcher, DispatcherResult};
 use SimpleRouting\Exceptions\HttpException;
 
 final class Router 
 {
+    use CreateRouteTrait;
+
     protected RouteCollection $collection;
 
     protected Dispatcher $dispatcher;
+
+    protected AttributeLoader $loader;
 
     public function __construct()
     {
         $this->collection = new RouteCollection();
         $this->dispatcher = new Dispatcher($this->collection);
+        $this->loader = new AttributeLoader($this);
     }
 
-    public function group(string $prefix, callable $callback): void
+    public function getCollection(): RouteCollection
     {
-        $this->collection->addGroup($prefix, $callback);
+        return $this->collection;
     }
 
-    /**
-     * Adding route with multiple HTTP methods to collection
-     */
-    public function map(array $httpMethods, string $uri, mixed $handler, array $parameters = []): void
+    public function loadControllers(array $controllers): void
     {
-        foreach ($httpMethods as $method) {
-            $this->collection->addRoute($method, $uri, $handler, $parameters);
-        }
-    }
-
-    /**
-     * Adding route as GET to collection
-     */
-    public function get(string $uri, mixed $handler, array $parameters = []): void
-    {
-        $this->collection->addRoute('GET', $uri, $handler, $parameters);
-    }
-
-    /**
-     * Adding route as POST to collection
-     */
-    public function post(string $uri, mixed $handler, array $parameters = []): void
-    {
-        $this->collection->addRoute('POST', $uri, $handler, $parameters);
-    }
-
-    /**
-     * Adding route as DELETE to collection
-     */
-    public function delete(string $uri, mixed $handler, array $parameters = []): void
-    {
-        $this->collection->addRoute('DELETE', $uri, $handler, $parameters);
-    }
-
-    /**
-     * Adding route as PUT to collection
-     */
-    public function put(string $uri, mixed $handler, array $parameters = []): void
-    {
-        $this->collection->addRoute('PUT', $uri, $handler, $parameters);
+        $attributes = $this->loader->load($controllers);
+        
     }
 
     /**
