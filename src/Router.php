@@ -4,75 +4,80 @@ declare(strict_types=1);
 
 namespace SimpleRouting;
 
+use SimpleRouting\Dispatcher\{Dispatcher, DispatcherResult};
 use SimpleRouting\Exceptions\HttpException;
-use SimpleRouting\Matcher\Matcher;
 
 final class Router 
 {
-    protected RouteCollection $routeCollection;
+    protected RouteCollection $collection;
+
+    protected Dispatcher $dispatcher;
 
     public function __construct()
     {
-        $this->routeCollection = new RouteCollection(
-            new Matcher()
-        );
+        $this->collection = new RouteCollection();
+        $this->dispatcher = new Dispatcher($this->collection);
     }
 
     public function group(string $prefix, callable $callback): void
     {
-        $this->routeCollection->addGroup($prefix, $callback);
+        $this->collection->addGroup($prefix, $callback);
     }
 
     /**
      * Adding route with multiple HTTP methods to collection
      */
-    public function map(array $httpMethods, string $uri, $handler, ?array $regex = null): void
+    public function map(array $httpMethods, string $uri, mixed $handler, array $parameters = []): void
     {
         foreach ($httpMethods as $method) {
-            $this->routeCollection->addRoute($method, $uri, $handler, $regex);
+            $this->collection->addRoute($method, $uri, $handler, $parameters);
         }
     }
 
     /**
      * Adding route as GET to collection
      */
-    public function get(string $uri, $handler, ?array $regex = null): void
+    public function get(string $uri, mixed $handler, array $parameters = []): void
     {
-        $this->routeCollection->addRoute('GET', $uri, $handler, $regex);
+        $this->collection->addRoute('GET', $uri, $handler, $parameters);
     }
 
     /**
      * Adding route as POST to collection
      */
-    public function post(string $uri, $handler, ?array $regex = null): void
+    public function post(string $uri, mixed $handler, array $parameters = []): void
     {
-        $this->routeCollection->addRoute('POST', $uri, $handler, $regex);
+        $this->collection->addRoute('POST', $uri, $handler, $parameters);
     }
 
     /**
      * Adding route as DELETE to collection
      */
-    public function delete(string $uri, $handler, ?array $regex = null): void
+    public function delete(string $uri, mixed $handler, array $parameters = []): void
     {
-        $this->routeCollection->addRoute('DELETE', $uri, $handler, $regex);
+        $this->collection->addRoute('DELETE', $uri, $handler, $parameters);
     }
 
     /**
      * Adding route as PUT to collection
      */
-    public function put(string $uri, $handler, ?array $regex = null): void
+    public function put(string $uri, mixed $handler, array $parameters = []): void
     {
-        $this->routeCollection->addRoute('PUT', $uri, $handler, $regex);
+        $this->collection->addRoute('PUT', $uri, $handler, $parameters);
     }
 
     /**
-     * @param string $httpMethod
-     * @param string $uri
+     * @throws HttpException
      */
-    public function dispatch(?string $httpMethod = null, ?string $uri = null): array
+    public function dispatch(?string $httpMethod = null, ?string $uri = null): DispatcherResult
     {
-        $httpMethod = $httpMethod ?? $_SERVER['REQUEST_METHOD'];
-        $uri = $uri ?? $_SERVER['REQUEST_URI'];
+        if ($httpMethod === null) {
+            throw new HttpException('Bad request', HttpException::BAD_REQUEST);
+        }
+
+        if ($uri === null) {
+            throw new HttpException('Not found', HttpException::NOT_FOUND);
+        }
 
         if (($pos = strpos($uri, '?')) !== false) {
             $uri = substr($uri, 0, $pos);
@@ -80,11 +85,7 @@ final class Router
 
         $uri = rawurldecode($uri);
 
-        $routeDispatcher = new RouteDispatcher(
-            $this->routeCollection->getRoutes()
-        );
-
-        if (($result = $routeDispatcher->handle($httpMethod, $uri)) === null) {
+        if (($result = $this->dispatcher->handle($httpMethod, $uri)) === null) {
             throw new HttpException('Route not found', HttpException::NOT_FOUND);
         }
 

@@ -9,15 +9,21 @@ use SimpleRouting\Matcher\MatcherInterface;
 
 class RouteCollection
 {
+    /** @var Route[] */
     protected array $routes = [];
+    
+    protected ?MatcherInterface $matcher;
 
-    public function __construct(
-        protected ?MatcherInterface $matcher = null,
-        protected string $groupPrefix = ''
-    ) {
-        $this->matcher = $matcher ?? new Matcher();
+    protected string $groupPrefix = '';
+
+    public function __construct() 
+    {
+        $this->matcher = new Matcher();
     }
     
+    /**
+     * @return Route[]
+     */
     public function getRoutes(): array
     {
         return $this->routes;
@@ -35,14 +41,14 @@ class RouteCollection
 
     public function addGroup(string $prefix, callable $callback): void
     {
-        $oldGroupPrefix = $this->getGroupPrefix();
+        $oldPrefix = $this->getGroupPrefix();
     
-        $this->setGroupPrefix($oldGroupPrefix . $prefix);
+        $this->setGroupPrefix($oldPrefix . $prefix);
         $callback($this);
-        $this->setGroupPrefix($oldGroupPrefix);
+        $this->setGroupPrefix($oldPrefix);
     }
 
-    public function addRoute(string $httpMethod, string $uri, $handler, array $regex = []): void
+    public function addRoute(string $httpMethod, string $uri, mixed $handler, array $regex = []): void
     {
         $uri = $this->getGroupPrefix() . $uri;
 
