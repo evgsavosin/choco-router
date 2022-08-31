@@ -6,19 +6,16 @@ namespace SimpleRouting\Matcher;
 
 use function strlen;
 use function substr;
+use function sprintf;
 
 class Parameter
 {
     use RegexMatchableTrait;
 
-    /**
-     * @var int MAX_NAME_LENGTH
-     */
+    /** @var int MAX_NAME_LENGTH */
     final public const MAX_NAME_LENGTH = 32;
 
-    /**
-     * @var string VALUE_PATTERN
-     */
+    /** @var string VALUE_PATTERN */
     final public const VALUE_PATTERN = '[^/]+';
 
     protected bool $isRequired = true;

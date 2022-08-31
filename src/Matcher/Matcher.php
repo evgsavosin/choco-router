@@ -14,9 +14,7 @@ class Matcher implements MatcherInterface
 {
     use RegexMatchableTrait;
 
-    /**
-     * @var string PARAMETER_PATTERN
-     */
+    /** @var string PARAMETER_PATTERN */
     final public const PARAMETER_PATTERN = '\{([a-zA-Z0-9?]+)\}';
 
     /**
