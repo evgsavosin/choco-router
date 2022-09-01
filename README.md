@@ -2,7 +2,7 @@
 Simple routing on regex expression.
 
 ## Requirements
-- PHP 7.4 or newer
+- PHP 8.0 or newer
 
 ## Install
 Install via composer:

@@ -7,6 +7,10 @@ namespace ChocoRouter;
 use ChocoRouter\Dispatcher\{Dispatcher, DispatcherInterface, DispatcherResult};
 use ChocoRouter\Exceptions\HttpException;
 
+use function strpos;
+use function substr;
+use function rawurldecode;
+
 /**
  * @since 1.0
  * @author Evgeny Savosin <evg@savosin.dev>
