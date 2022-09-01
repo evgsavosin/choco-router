@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleRouting;
 
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class RouteExpression
 {
     public function __construct(

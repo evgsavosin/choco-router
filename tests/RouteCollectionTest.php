@@ -24,7 +24,7 @@ final class RouteCollectionTest extends TestCase
         foreach ($routeCollectionList as $routeItem) {
             $currentRoutes[] = [
                 $routeItem->getHttpMethod(), 
-                $routeItem->getUri()
+                $routeItem->getExpression()->getPattern()
             ];
         }
 

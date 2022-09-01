@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use Tests\Controllers\FooController;
+use Tests\Controllers\{FooController, BazAction};
 use SimpleRouting\Route;
 use SimpleRouting\Attribute\AttributeLoader;
-use SimpleRouting\Router;
+use SimpleRouting\RouteCollection;
 
 use function PHPUnit\Framework\assertInstanceOf;
 
@@ -16,16 +16,16 @@ final class AttributeLoaderTest extends TestCase
 {
     public function testRouteDispatching(): void
     {
-        $router = new Router();
-        $loader = new AttributeLoader($router);
+        $collection = new RouteCollection();
+        $loader = new AttributeLoader($collection);
         
         $loader->load([
-            FooController::class
+            FooController::class,
+            BazAction::class
         ]);
 
-        assertInstanceOf(
-            Route::class, 
-            $router->getCollection()->getRoutes()[0]
-        );
+        foreach ($collection->getRoutes() as $route) {
+            assertInstanceOf(Route::class, $route);
+        }
     }
 }

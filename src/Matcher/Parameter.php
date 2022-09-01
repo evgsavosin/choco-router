@@ -8,6 +8,10 @@ use function strlen;
 use function substr;
 use function sprintf;
 
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class Parameter
 {
     use RegexMatchableTrait;

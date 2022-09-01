@@ -9,7 +9,13 @@ use SimpleRouting\Attribute\Route;
 final class FooController 
 {
     #[Route('GET', '/foo')]
-    public function testAttribute(): void
+    public function foo(): void
+    {
+        
+    }
+
+    #[Route('GET', '/bar')]
+    public function bar(): void
     {
         
     }

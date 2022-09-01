@@ -6,6 +6,13 @@ namespace SimpleRouting\Attribute;
 
 use Attribute;
 
+
+/**
+ * Route attribute
+ * 
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 class Route 
 {

@@ -6,13 +6,19 @@ namespace SimpleRouting\Dispatcher;
 
 use SimpleRouting\RouteCollection;
 
+/**
+ * Dispatch request to router and match route with parameters
+ * 
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class Dispatcher implements DispatcherInterface
 {
     public function __construct(
         protected RouteCollection $collection
     ){}
 
-    public function handle(string $httpMethod, string $uri): ?DispatcherResult
+    public function dispatch(string $httpMethod, string $uri): ?DispatcherResult
     {
         $routes = $this->collection->getRoutes();
 

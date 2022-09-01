@@ -10,6 +10,10 @@ use function preg_replace_callback;
 use function preg_match;
 use function preg_quote;
 
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class Matcher implements MatcherInterface
 {
     use RegexMatchableTrait;

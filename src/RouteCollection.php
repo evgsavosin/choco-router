@@ -7,6 +7,10 @@ namespace SimpleRouting;
 use SimpleRouting\Matcher\Matcher;
 use SimpleRouting\Matcher\MatcherInterface;
 
+/**
+ * @since 1.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class RouteCollection
 {
     /** @var Route[] */

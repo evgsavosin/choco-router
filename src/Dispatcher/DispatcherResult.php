@@ -6,6 +6,10 @@ namespace SimpleRouting\Dispatcher;
 
 use SimpleRouting\Route;
 
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class DispatcherResult
 {
     public function __construct(

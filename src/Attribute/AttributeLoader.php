@@ -5,38 +5,53 @@ declare(strict_types=1);
 namespace SimpleRouting\Attribute;
 
 use SimpleRouting\Attribute\Route;
-use SimpleRouting\Router;
+use SimpleRouting\RouteCollection;
 use ReflectionClass;
 
+/**
+ * Attribute loader for MVC (controllers, actions and etc.)
+ * 
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class AttributeLoader implements AttributeLoaderInterface
 {
-    public array $controllers;
-
     public function __construct(
-        protected Router $router
+        protected RouteCollection $collection
     ) {}
 
-    public function load(array $controllers): void
+    public function load(array $classes): void
     {
-        foreach ($controllers as $controller) {
-            $reflection = new ReflectionClass($controller);
+        foreach ($classes as $class) {
+            $reflection = new ReflectionClass($class);
+            $this->eachAttributes(
+                $reflection->getAttributes(Route::class), 
+                $reflection->getName()
+            );
+
             $methods = $reflection->getMethods();
 
             foreach ($methods as $method) {
-                $attributes = $method->getAttributes(Route::class);
-                
-                foreach ($attributes as $attribute) {
-                    /** @var Route $instance */
-                    $instance = $attribute->newInstance();
-                    
-                    $this->router->getCollection()->addRoute(
-                        $instance->getHttpMethod(),
-                        $instance->getUri(),
-                        "{$reflection->getNamespaceName()}@{$method->getName()}",
-                        $instance->getParameters()
-                    );
-                }
+                $this->eachAttributes(
+                    $method->getAttributes(Route::class), 
+                    "{$reflection->getName()}@{$method->getName()}"
+                );
             }
+        }
+    }
+
+    private function eachAttributes(array $attributes, mixed $handler): void
+    {
+        foreach ($attributes as $attribute) {
+            /** @var Route $instance */
+            $instance = $attribute->newInstance();
+            
+            $this->collection->addRoute(
+                $instance->getHttpMethod(),
+                $instance->getUri(),
+                $handler,
+                $instance->getParameters()
+            );
         }
     }
 }

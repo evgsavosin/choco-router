@@ -6,6 +6,10 @@ namespace SimpleRouting\Exceptions;
 
 use Exception;
 
+/**
+ * @since 1.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 final class HttpException extends Exception
 {
     /** @var int NOT_FOUND */

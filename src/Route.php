@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleRouting;
 
+/**
+ * @since 1.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class Route
 {
     public function __construct(
@@ -19,15 +23,6 @@ class Route
     }
 
     /**
-     * @deprecated This method is deprecated and remove in future version
-     * @since 1.0
-     */
-    public function getUri(): string
-    {
-        return $this->expression->getPattern();
-    }
-
-    /**
      * @since 2.0
      */
     public function getExpression(): RouteExpression
@@ -38,15 +33,6 @@ class Route
     public function getHandler(): mixed
     {
         return $this->handler;
-    }
-
-    /**
-     * @deprecated This method is deprecated and remove in future version
-     * @since 1.0
-     */
-    public function getRegex(): array
-    {
-        return $this->regex;
     }
 
     /**
