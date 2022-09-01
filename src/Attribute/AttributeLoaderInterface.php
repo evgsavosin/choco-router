@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Attribute;
+namespace ChocoRouter\Attribute;
 
 /**
  * Attribute loader implementation for MVC (controllers, actions and etc.)

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use SimpleRouting\Matcher\{Matcher, MatcherInterface};
+use ChocoRouter\Matcher\{Matcher, MatcherInterface};
 
 final class RouteParserTest extends TestCase
 {

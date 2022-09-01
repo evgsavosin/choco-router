@@ -6,10 +6,10 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Tests\Controllers\{FooController, BazAction};
-use SimpleRouting\Attribute\AttributeLoader;
-use SimpleRouting\Dispatcher\DispatcherResult;
-use SimpleRouting\Exceptions\HttpException;
-use SimpleRouting\{RouteCollection, Router};
+use ChocoRouter\Attribute\AttributeLoader;
+use ChocoRouter\Dispatcher\DispatcherResult;
+use ChocoRouter\Exceptions\HttpException;
+use ChocoRouter\{RouteCollection, Router};
 
 final class RouterTest extends TestCase
 {

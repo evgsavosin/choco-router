@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Controllers;
 
-use SimpleRouting\Attribute\Route;
+use ChocoRouter\Attribute\Route;
 
 final class FooController 
 {

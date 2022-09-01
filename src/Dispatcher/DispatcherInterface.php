@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Dispatcher;
+namespace ChocoRouter\Dispatcher;
 
 /**
  * Dispatcher interface for dispatch entry request for router

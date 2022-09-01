@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use SimpleRouting\Dispatcher\DispatcherResult;
-use SimpleRouting\SimpleRouter;
+use ChocoRouter\Dispatcher\DispatcherResult;
+use ChocoRouter\SimpleRouter;
 
 final class SimpleRouterTest extends TestCase
 {

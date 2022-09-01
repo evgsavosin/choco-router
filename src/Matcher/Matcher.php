@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Matcher;
+namespace ChocoRouter\Matcher;
 
-use SimpleRouting\RouteExpression;
+use ChocoRouter\RouteExpression;
 
 use function preg_replace_callback;
 use function preg_match;

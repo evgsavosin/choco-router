@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Dispatcher;
+namespace ChocoRouter\Dispatcher;
 
-use SimpleRouting\RouteCollection;
+use ChocoRouter\RouteCollection;
 
 /**
  * Dispatch request to router and match route with parameters

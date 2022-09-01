@@ -16,8 +16,8 @@ Basic usage:
 <?php 
 require 'vendor/autoload.php';
 
-use SimpleRouting\Router;
-use SimpleRouting\Exceptions\HttpException;
+use ChocoRouter\Router;
+use ChocoRouter\Exceptions\HttpException;
 
 // Create router instance
 $router = new Router();

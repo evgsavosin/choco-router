@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Dispatcher;
+namespace ChocoRouter\Dispatcher;
 
-use SimpleRouting\Route;
+use ChocoRouter\Route;
 
 /**
  * @since 2.0

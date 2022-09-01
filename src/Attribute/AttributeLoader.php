@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Attribute;
+namespace ChocoRouter\Attribute;
 
-use SimpleRouting\Attribute\Route;
-use SimpleRouting\RouteCollection;
+use ChocoRouter\Attribute\Route;
+use ChocoRouter\RouteCollection;
 use ReflectionClass;
 
 /**

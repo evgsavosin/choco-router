@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SimpleRouting\\": "src/",
+            "ChocoRouter\\": "src/",
             "Tests\\": "tests/"
         }
     },

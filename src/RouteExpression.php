@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting;
+namespace ChocoRouter;
 
 /**
  * @since 2.0

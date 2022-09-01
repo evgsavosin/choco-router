@@ -6,9 +6,9 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Tests\Controllers\{FooController, BazAction};
-use SimpleRouting\Route;
-use SimpleRouting\Attribute\AttributeLoader;
-use SimpleRouting\RouteCollection;
+use ChocoRouter\Route;
+use ChocoRouter\Attribute\AttributeLoader;
+use ChocoRouter\RouteCollection;
 
 use function PHPUnit\Framework\assertInstanceOf;
 

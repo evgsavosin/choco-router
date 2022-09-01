@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting;
+namespace ChocoRouter;
 
-use SimpleRouting\Dispatcher\{Dispatcher, DispatcherInterface, DispatcherResult};
-use SimpleRouting\Exceptions\HttpException;
+use ChocoRouter\Dispatcher\{Dispatcher, DispatcherInterface, DispatcherResult};
+use ChocoRouter\Exceptions\HttpException;
 
 /**
  * @since 1.0

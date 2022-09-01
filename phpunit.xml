@@ -12,7 +12,7 @@
     </coverage>
     
     <testsuites>
-        <testsuite name="SimpleRouting">
+        <testsuite name="ChocoRouter">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>

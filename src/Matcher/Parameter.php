@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Matcher;
+namespace ChocoRouter\Matcher;
 
 use function strlen;
 use function substr;

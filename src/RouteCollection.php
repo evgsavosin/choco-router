@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting;
+namespace ChocoRouter;
 
-use SimpleRouting\Matcher\Matcher;
-use SimpleRouting\Matcher\MatcherInterface;
+use ChocoRouter\Matcher\Matcher;
+use ChocoRouter\Matcher\MatcherInterface;
 
 /**
  * @since 1.0

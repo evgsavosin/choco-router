@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleRouting\Exceptions;
+namespace ChocoRouter\Exceptions;
 
 use Exception;
 
