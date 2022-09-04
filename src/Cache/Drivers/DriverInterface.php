@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace ChocoRouter\Cache\Drivers;
 
-use ChocoRouter\Cache\CacheKey;
-
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 interface DriverInterface
 {
     public function get(string $key): mixed;

@@ -15,12 +15,17 @@ use function str_replace;
 use function var_export;
 use function sprintf;
 
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 final class FileDriver implements DriverInterface
 {
+    /** @var string NAME */
+    public const NAME = 'filesystem';
+
     /** @var string CACHE_DIRECTORY_NAME */
     private const CACHE_DIRECTORY_NAME = 'choco-router';
-
-    private array $data = [];
 
     /**
      * @throws InvalidArgumentException
@@ -51,21 +56,15 @@ final class FileDriver implements DriverInterface
     {
         $path = $this->makePath($key);
 
-        if (array_key_exists($key, $this->data)) {
-            return $this->data[$key];
-        }
-
-        if (($this->data[$key] = @include($path)) === false) {
+        if (($data = @include($path)) === false) {
             return null;
         }
 
-        return $this->data[$key];
+        return $data;
     }
 
     public function set(string $key, mixed $value): mixed
     {
-        $this->data[$key] = $value;
-
         file_put_contents(
             $this->makePath($key), 
             sprintf('<?php return %s;', str_replace(["\n", ' '], '', var_export($value, true))), 
@@ -77,7 +76,6 @@ final class FileDriver implements DriverInterface
 
     public function delete(string $key): void
     {
-        unset($this->data[$key]);
         @unlink($this->makePath($key));
     }
 }

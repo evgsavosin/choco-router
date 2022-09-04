@@ -5,36 +5,34 @@ declare(strict_types=1);
 namespace ChocoRouter\Cache\Drivers;
 
 use ChocoRouter\Cache\NotInstalledDriverException;
-
-use function apcu_fetch;
-use function apcu_store;
-use function apcu_delete;
+use Memcached;
 
 /**
  * @since 2.0
  * @author Evgeny Savosin <evg@savosin.dev>
  */
-final class ApcuDriver implements DriverInterface
+final class MemcachedDriver implements DriverInterface
 {
     /** @var string NAME */
-    public const NAME = 'apcu';
+    public const NAME = 'memcached';
 
-    public function __construct()
+    protected Memcached $memcached;
+
+    public function __construct(array $servers)
     {
         if (!extension_loaded(self::NAME)) {
-            throw new NotInstalledDriverException('APCu extension is not installed.');
+            throw new NotInstalledDriverException('Memcached extension is not installed.');
         }  
 
-        if (!apcu_enabled()) {
-            throw new NotInstalledDriverException('APCu extension is not enabled.');
-        }
+        $this->memcached = new Memcached();
+        $this->memcached->addServers($servers);
     }
 
     public function get(string $key): mixed
     {
-        $data = apcu_fetch($key, $success);
+        $data = $this->memcached->get($key);
 
-        if (!$success || $data === false) {
+        if ($data === false) {
             return null;
         }
 
@@ -43,13 +41,13 @@ final class ApcuDriver implements DriverInterface
 
     public function set(string $key, mixed $value): mixed
     {
-        apcu_store($key, $value);
+        $this->memcached->set($key, $value);
 
         return $value;
     }
 
     public function delete(string $key): void
     {
-        apcu_delete($key);
+        $this->memcached->delete($key);
     }
 }

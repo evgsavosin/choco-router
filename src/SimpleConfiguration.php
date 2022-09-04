@@ -14,12 +14,18 @@ class SimpleConfiguration
 {
     public function __construct(
         private bool $cacheDisable = false,
+        private array $cacheOptions = [],
         private string $cacheDriver = FileDriver::class
     ) {}
 
     public function isCacheable(): bool
     {
         return !$this->cacheDisable;
+    }
+
+    public function getCacheOptions(): array
+    {
+        return $this->cacheOptions;
     }
 
     public function getCacheDriver(): string

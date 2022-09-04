@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace ChocoRouter\Cache;
 
 use ChocoRouter\Cache\Drivers\DriverInterface;
-use Closure;
 use InvalidArgumentException;
 
+/**
+ * @since 2.0
+ * @author Evgeny Savosin <evg@savosin.dev>
+ */
 class Cache
 {
     protected DriverInterface $driver;
 
-    public function __construct(string $driverClass) 
+    public function __construct(string $driverClass, array $options = []) 
     {
-        $this->driver = new $driverClass;
+        $this->driver = new $driverClass(...$options);
 
         if (!($this->driver instanceof DriverInterface)) {
             throw new InvalidArgumentException('Cache driver must be implements driver interface.');

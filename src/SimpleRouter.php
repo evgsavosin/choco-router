@@ -25,7 +25,7 @@ final class SimpleRouter
         $this->configuration = new SimpleConfiguration(...$options);
 
         if ($this->configuration->isCacheable()) {
-            $this->cache = new Cache($this->configuration->getCacheDriver());
+            $this->cache = new Cache($this->configuration->getCacheDriver(), $this->configuration->getCacheOptions());
         }
 
         $collection = new RouteCollection();
