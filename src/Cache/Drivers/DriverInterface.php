@@ -8,9 +8,9 @@ use ChocoRouter\Cache\CacheKey;
 
 interface DriverInterface
 {
-    public function get(CacheKey $key): mixed;
+    public function get(string $key): mixed;
 
-    public function set(CacheKey $key, mixed $value): mixed;
+    public function set(string $key, mixed $value): mixed;
 
-    public function delete(CacheKey $key);
+    public function delete(string $key);
 }

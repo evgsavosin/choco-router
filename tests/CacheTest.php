@@ -7,6 +7,7 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use ChocoRouter\Cache\Cache;
 use ChocoRouter\Cache\CacheKey;
+use ChocoRouter\Cache\Drivers\ApcuDriver;
 use ChocoRouter\Cache\Drivers\FileDriver;
 
 use function PHPUnit\Framework\assertEquals;
@@ -19,7 +20,19 @@ final class СacheTest extends TestCase
         $data = $cache->get(CacheKey::TEST);
 
         if ($data === null) {
-            $data = $cache->set(CacheKey::TEST, $data);
+            $data = $cache->set(CacheKey::TEST, ['foo' => 'bar', 'baz' => 'quux']);
+        }
+
+        assertEquals($data, ['foo' => 'bar', 'baz' => 'quux']);
+    }
+
+    public function testCacheViaApcuDriver(): void
+    {
+        $cache = new Cache(ApcuDriver::class);
+        $data = $cache->get(CacheKey::TEST);
+
+        if ($data === null) {
+            $data = $cache->set(CacheKey::TEST, ['foo' => 'bar', 'baz' => 'quux']);
         }
 
         assertEquals($data, ['foo' => 'bar', 'baz' => 'quux']);

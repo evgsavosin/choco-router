@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ChocoRouter\Cache\Drivers;
 
-use ChocoRouter\Cache\CacheKey;
 use InvalidArgumentException;
 
 use function sys_get_temp_dir;
@@ -29,7 +28,10 @@ final class FileDriver implements DriverInterface
     public function __construct(
         private ?string $directory = null
     ) {
-        if ($this->directory !== null && !is_writable($this->directory)) {
+        if (
+            $this->directory !== null 
+            && !is_writable($this->directory)
+        ) {
             throw new InvalidArgumentException("Cache directory \"{$this->directory}\" not writeable.");
         }
 
@@ -40,29 +42,29 @@ final class FileDriver implements DriverInterface
         }
     }
 
-    private function makePath(CacheKey $key): string
+    private function makePath(string $key): string
     {
-        return $this->directory . DIRECTORY_SEPARATOR . ($key->value) . '.php';
+        return $this->directory . DIRECTORY_SEPARATOR . $key . '.php';
     }
 
-    public function get(CacheKey $key): mixed
+    public function get(string $key): mixed
     {
         $path = $this->makePath($key);
 
-        if (array_key_exists($key->value, $this->data)) {
-            return $this->data[$key->value];
+        if (array_key_exists($key, $this->data)) {
+            return $this->data[$key];
         }
 
-        if (($this->data[$key->value] = @include($path)) === false) {
+        if (($this->data[$key] = @include($path)) === false) {
             return null;
         }
 
-        return $this->data[$key->value];
+        return $this->data[$key];
     }
 
-    public function set(CacheKey $key, mixed $value): mixed
+    public function set(string $key, mixed $value): mixed
     {
-        $this->data[$key->value] = $value;
+        $this->data[$key] = $value;
 
         file_put_contents(
             $this->makePath($key), 
@@ -73,9 +75,9 @@ final class FileDriver implements DriverInterface
         return $value;
     }
 
-    public function delete(CacheKey $key): void
+    public function delete(string $key): void
     {
-        unset($this->data[$key->value]);
+        unset($this->data[$key]);
         @unlink($this->makePath($key));
     }
 }

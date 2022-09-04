@@ -28,23 +28,23 @@ class Cache
 
     public function get(CacheKey $key): mixed
     {
-        return $this->driver->get($key);
+        return $this->driver->get($key->value);
     }
 
     public function set(CacheKey $key, mixed $value): mixed
     {
-        return $this->driver->set($key, $value);
+        return $this->driver->set($key->value, $value);
     }
 
     public function delete(CacheKey $key): void
     {
-        $this->driver->delete($key);
+        $this->driver->delete($key->value);
     }
 
     public function clear(): void
     {
         foreach (CacheKey::cases() as $key) {
-            $this->driver->delete($key);
+            $this->driver->delete($key->value);
         }
     }
 }
