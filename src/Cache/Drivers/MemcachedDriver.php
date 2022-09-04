@@ -30,7 +30,10 @@ final class MemcachedDriver implements DriverInterface
         }
 
         $this->memcached = new Memcached();
-        $this->memcached->addServers($servers);
+        
+        if ($this->memcached->addServers($servers) === false) {
+            throw new InvalidArgumentException('Servers is not available.');
+        }
     }
 
     public function get(string $key): mixed

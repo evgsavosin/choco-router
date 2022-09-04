@@ -11,9 +11,13 @@ use ChocoRouter\Cache\Drivers\ApcuDriver;
 use ChocoRouter\Cache\Drivers\FileDriver;
 use ChocoRouter\Cache\Drivers\MemcachedDriver;
 use ChocoRouter\Cache\NotInstalledDriverException;
+use InvalidArgumentException;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertIsObject;
+use function PHPUnit\Framework\assertSame;
+use function PHPUnit\Framework\assertTrue;
 
 final class СacheTest extends TestCase
 {
@@ -27,37 +31,5 @@ final class СacheTest extends TestCase
         }
 
         assertEquals($data, ['foo' => 'bar', 'baz' => 'quux']);
-    }
-
-    public function testCacheViaApcuDriver(): void
-    {
-        try {
-            $cache = new Cache(ApcuDriver::class);
-            $data = $cache->get(CacheKey::TEST);
-
-            if ($data === null) {
-                $data = $cache->set(CacheKey::TEST, ['foo' => 'bar', 'baz' => 'quux']);
-            }
-
-            assertEquals($data, ['foo' => 'bar', 'baz' => 'quux']);
-        } catch (NotInstalledDriverException $e) {
-            assertInstanceOf(NotInstalledDriverException::class, $e);
-        }
-    }
-
-    public function testCacheViaMemcachedDriver(): void
-    {
-        try {
-            $cache = new Cache(MemcachedDriver::class);
-            $data = $cache->get(CacheKey::TEST);
-
-            if ($data === null) {
-                $data = $cache->set(CacheKey::TEST, ['foo' => 'bar', 'baz' => 'quux']);
-            }
-
-            assertEquals($data, ['foo' => 'bar', 'baz' => 'quux']);
-        } catch (NotInstalledDriverException $e) {
-            assertInstanceOf(NotInstalledDriverException::class, $e);
-        }
     }
 }
