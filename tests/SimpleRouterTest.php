@@ -13,7 +13,7 @@ use ChocoRouter\SimpleRouter;
 
 final class SimpleRouterTest extends TestCase
 {
-    public function testSimpleRouterHandling(): void
+    public function testOneParameterHandling(): void
     {
         $router = new SimpleRouter();
         $router->addRoute(HttpMethod::GET, '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
@@ -22,7 +22,20 @@ final class SimpleRouterTest extends TestCase
         $this->assertInstanceOf(DispatcherResult::class, $result);
     }
 
-    public function testSimpleRouterCacheViaFileDriver(): void
+    public function testTwoParametersHandling(): void
+    {
+        $router = new SimpleRouter();
+        $router->addRoute(HttpMethod::GET, '/foo/{bar}/{quxx?}', 'foo-bar', [
+            'quxx' => '[a-zA-Z]+',
+            'bar' => '[0-9]+'
+        ]);
+
+        $result = $router->handle('GET', '/foo/1/');
+
+        $this->assertInstanceOf(DispatcherResult::class, $result);
+    }
+
+    public function testCacheViaFileDriver(): void
     {
         $router = new SimpleRouter([
             'cacheDisable' => false,
