@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ChocoRouter\Cache\Drivers;
 
 use ChocoRouter\Cache\NotInstalledDriverException;
+use InvalidArgumentException;
 use Memcached;
 
 /**
@@ -18,11 +19,15 @@ final class MemcachedDriver implements DriverInterface
 
     protected Memcached $memcached;
 
-    public function __construct(array $servers)
+    public function __construct(array $servers = [])
     {
         if (!extension_loaded(self::NAME)) {
             throw new NotInstalledDriverException('Memcached extension is not installed.');
         }  
+
+        if ($servers === []) {
+            throw new InvalidArgumentException('Servers was not listed.');
+        }
 
         $this->memcached = new Memcached();
         $this->memcached->addServers($servers);
