@@ -1,5 +1,5 @@
 # Choco Router
-[![PHPUnit Tests](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml/badge.svg)](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml) [![License](https://img.shields.io/badge/license-MIT-green.svg?logo=github)](https://img.shields.io/badge/license-MIT-green.svg?logo=github) [![License](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github)](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github) 
+[![PHPUnit Tests](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml/badge.svg)](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml) [![License](https://img.shields.io/badge/license-MIT-green.svg?logo=github)](https://img.shields.io/badge/license-MIT-green.svg?logo=github) [![PHP](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github)](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github) 
 
 Modern router for PHP based on regex expression with cache system. Caching has driver support: file system, APCum, Memcached. Defining routes is possible both using methods and attributes from PHP 8.0.
 
