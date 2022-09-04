@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ChocoRouter\Attribute;
 
+use ChocoRouter\HttpMethod;
 use Attribute;
-
 
 /**
  * Route attribute
@@ -17,12 +17,12 @@ use Attribute;
 class Route 
 {
     public function __construct(
-        private string $httpMethod,
+        private HttpMethod $httpMethod,
         private string $uri,
         private mixed $parameters = []
     ) {}
 
-    public function getHttpMethod(): string
+    public function getHttpMethod(): HttpMethod
     {
         return $this->httpMethod;
     }

@@ -9,14 +9,14 @@ use Tests\Controllers\{FooController, BazAction};
 use ChocoRouter\Attribute\AttributeLoader;
 use ChocoRouter\Dispatcher\DispatcherResult;
 use ChocoRouter\Exceptions\HttpException;
-use ChocoRouter\{RouteCollection, Router};
+use ChocoRouter\{HttpMethod, RouteCollection, Router};
 
 final class RouterTest extends TestCase
 {
     public function testRouteSimpleHandling(): void
     {
         $collection = new RouteCollection();
-        $collection->addRoute('GET', '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
+        $collection->addRoute(HttpMethod::GET, '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
         $router = new Router($collection);
         $result = $router->handle('GET', '/foo/1');
 
@@ -26,7 +26,7 @@ final class RouterTest extends TestCase
     public function testRouteAttributeHandling(): void
     {
         $collection = new RouteCollection();
-        $collection->addRoute('GET', '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
+        $collection->addRoute(HttpMethod::GET, '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
         
         $loader = new AttributeLoader($collection);
         $loader->load([FooController::class, BazAction::class]);

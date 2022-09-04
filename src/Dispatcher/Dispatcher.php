@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ChocoRouter\Dispatcher;
 
-use ChocoRouter\RouteCollection;
+use ChocoRouter\{HttpMethod, RouteCollection};
 
 /**
  * Dispatch request to router and match route with parameters
@@ -23,7 +23,7 @@ class Dispatcher implements DispatcherInterface
         $routes = $this->collection->getRoutes();
 
         foreach ($routes as $route) {
-            if ($route->getHttpMethod() !== $httpMethod) {
+            if ($route->getHttpMethod() !== HttpMethod::tryFrom($httpMethod)) {
                 continue;
             }
 

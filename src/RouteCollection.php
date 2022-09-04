@@ -24,6 +24,14 @@ class RouteCollection
     {
         $this->matcher = new Matcher();
     }
+
+    /**
+     * @param Route[] $routes
+     */
+    public function fromArray(array $routes): void
+    {
+        $this->routes = $routes;
+    }
     
     /**
      * @return Route[]
@@ -52,7 +60,7 @@ class RouteCollection
         $this->setGroupPrefix($oldPrefix);
     }
 
-    public function addRoute(string $httpMethod, string $uri, mixed $handler, array $parameters = []): void
+    public function addRoute(HttpMethod $httpMethod, string $uri, mixed $handler, array $parameters = []): void
     {
         $uri = $this->getGroupPrefix() . $uri;
 

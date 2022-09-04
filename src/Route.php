@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace ChocoRouter;
 
+use ChocoRouter\Traits\StateableTrait;
+
 /**
  * @since 1.0
  * @author Evgeny Savosin <evg@savosin.dev>
  */
 class Route
 {
+    use StateableTrait;
+
     public function __construct(
-        protected string $httpMethod, 
+        protected HttpMethod $httpMethod, 
         protected RouteExpression $expression, 
         protected mixed $handler, 
         protected array $parameters = []
     ) {}
-
-    public function getHttpMethod(): string
+    
+    public function getHttpMethod(): HttpMethod
     {
         return $this->httpMethod;
     }

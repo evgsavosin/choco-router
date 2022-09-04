@@ -6,6 +6,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use ChocoRouter\RouteCollection;
+use ChocoRouter\HttpMethod;
 
 final class RouteCollectionTest extends TestCase
 {
@@ -13,10 +14,10 @@ final class RouteCollectionTest extends TestCase
     {
         $routeCollection = new RouteCollection();
 
-        $routeCollection->addRoute('GET', '/foo', 'foo');
-        $routeCollection->addRoute('POST', '/foo/bar', 'foo-bar');
-        $routeCollection->addRoute('DELETE', '/foo/bar/baz', 'foo-bar-baz');
-        $routeCollection->addRoute('PUT', '/foo/bar/baz/quux', 'foo-bar-baz-quux');
+        $routeCollection->addRoute(HttpMethod::GET, '/foo', 'foo');
+        $routeCollection->addRoute(HttpMethod::POST, '/foo/bar', 'foo-bar');
+        $routeCollection->addRoute(HttpMethod::DELETE, '/foo/bar/baz', 'foo-bar-baz');
+        $routeCollection->addRoute(HttpMethod::PUT, '/foo/bar/baz/quux', 'foo-bar-baz-quux');
 
         $routeCollectionList = $routeCollection->getRoutes();
         $currentRoutes = [];
@@ -31,10 +32,10 @@ final class RouteCollectionTest extends TestCase
         $this->assertIsArray($currentRoutes);
 
         $this->assertSame($currentRoutes, [
-            ['GET', '/foo'],
-            ['POST', '/foo/bar'],
-            ['DELETE', '/foo/bar/baz'],
-            ['PUT', '/foo/bar/baz/quux']
+            [HttpMethod::GET, '/foo'],
+            [HttpMethod::POST, '/foo/bar'],
+            [HttpMethod::DELETE, '/foo/bar/baz'],
+            [HttpMethod::PUT, '/foo/bar/baz/quux']
         ]);
     }
 }
