@@ -6,7 +6,7 @@ namespace Tests;
 
 use ChocoRouter\Cache\Drivers\FileDriver;
 use PHPUnit\Framework\TestCase;
-use ChocoRouter\Dispatcher\DispatcherResult;
+use ChocoRouter\Resolver\ResolverResult;
 use ChocoRouter\HttpMethod;
 use ChocoRouter\RouteCollection;
 use ChocoRouter\SimpleRouter;
@@ -17,9 +17,9 @@ final class SimpleRouterTest extends TestCase
     {
         $router = new SimpleRouter();
         $router->addRoute(HttpMethod::GET, '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
-        $result = $router->handle('GET', '/foo/1');
+        $result = $router->resolve('GET', '/foo/1');
 
-        $this->assertInstanceOf(DispatcherResult::class, $result);
+        $this->assertInstanceOf(ResolverResult::class, $result);
     }
 
     public function testTwoParametersHandling(): void
@@ -30,9 +30,9 @@ final class SimpleRouterTest extends TestCase
             'bar' => '[0-9]+'
         ]);
 
-        $result = $router->handle('GET', '/foo/1/');
+        $result = $router->resolve('GET', '/foo/1/');
 
-        $this->assertInstanceOf(DispatcherResult::class, $result);
+        $this->assertInstanceOf(ResolverResult::class, $result);
     }
 
     public function testCacheViaFileDriver(): void
@@ -46,7 +46,7 @@ final class SimpleRouterTest extends TestCase
             $r->addRoute(HttpMethod::GET, '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
         });
 
-        $result = $router->handle('GET', '/foo/1');
-        $this->assertInstanceOf(DispatcherResult::class, $result);
+        $result = $router->resolve('GET', '/foo/1');
+        $this->assertInstanceOf(ResolverResult::class, $result);
     }
 }

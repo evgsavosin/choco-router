@@ -7,7 +7,7 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use Tests\Controllers\{FooController, BazAction};
 use ChocoRouter\Attribute\AttributeLoader;
-use ChocoRouter\Dispatcher\DispatcherResult;
+use ChocoRouter\Resolver\ResolverResult;
 use ChocoRouter\Exceptions\HttpException;
 use ChocoRouter\{HttpMethod, RouteCollection, Router};
 
@@ -18,9 +18,9 @@ final class RouterTest extends TestCase
         $collection = new RouteCollection();
         $collection->addRoute(HttpMethod::GET, '/foo/{bar}', 'foo-bar', ['bar' => '[0-9]+']);
         $router = new Router($collection);
-        $result = $router->handle('GET', '/foo/1');
+        $result = $router->resolve('GET', '/foo/1');
 
-        $this->assertInstanceOf(DispatcherResult::class, $result);
+        $this->assertInstanceOf(ResolverResult::class, $result);
     }
 
     public function testRouteAttributeHandling(): void
@@ -32,9 +32,9 @@ final class RouterTest extends TestCase
         $loader->load([FooController::class, BazAction::class]);
 
         $router = new Router($collection);
-        $result = $router->handle('GET', '/foo/1');
+        $result = $router->resolve('GET', '/foo/1');
 
-        $this->assertInstanceOf(DispatcherResult::class, $result);
+        $this->assertInstanceOf(ResolverResult::class, $result);
     }
 
     public function testRouteNotFound(): void
@@ -43,7 +43,7 @@ final class RouterTest extends TestCase
 
         try {
             $router = new Router($collection);
-            $router->handle('GET', '/foo');
+            $router->resolve('GET', '/foo');
         } catch (HttpException $e) {
             $this->assertInstanceOf(HttpException::class, $e);
             $this->assertSame($e->getCode(), HttpException::NOT_FOUND);

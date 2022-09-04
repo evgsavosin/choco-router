@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace ChocoRouter\Dispatcher;
+namespace ChocoRouter\Resolver;
 
 use ChocoRouter\{HttpMethod, RouteCollection};
 
 /**
- * Dispatch request to router and match route with parameters
+ * Resolve request to router and match route with parameters
  * 
  * @since 2.0
  * @author Evgeny Savosin <evg@savosin.dev>
  */
-class Dispatcher implements DispatcherInterface
+class Resolver implements ResolverInterface
 {
     public function __construct(
         protected RouteCollection $collection
     ){}
 
-    public function dispatch(string $httpMethod, string $uri): ?DispatcherResult
+    public function resolve(string $httpMethod, string $uri): ?ResolverResult
     {
         $routes = $this->collection->getRoutes();
 
@@ -33,7 +33,7 @@ class Dispatcher implements DispatcherInterface
                 (!$route->hasParameters() && $expression->getValue() == $uri)
                 || ($route->hasParameters() && preg_match($expression->getPattern(), $uri, $matches))
             ) {
-                return new DispatcherResult(
+                return new ResolverResult(
                     $route, 
                     $uri,
                     $this->matchParameters($route->getParameters(), $matches)

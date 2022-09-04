@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ChocoRouter;
 
 use ChocoRouter\Cache\{Cache, CacheKey, DisableCacheException};
-use ChocoRouter\Dispatcher\DispatcherResult;
+use ChocoRouter\Resolver\ResolverResult;
 use Closure;
 
 /**
@@ -79,9 +79,9 @@ final class SimpleRouter
     /**
      * @throws HttpException
      */
-    public function handle(?string $httpMethod = null, ?string $uri = null): DispatcherResult
+    public function resolve(?string $httpMethod = null, ?string $uri = null): ResolverResult
     {
-        return $this->router->handle(
+        return $this->router->resolve(
             $httpMethod ?? ($_SERVER['REQUEST_METHOD'] ?? null), 
             $uri ?? ($_SERVER['REQUEST_URI'] ?? null)
         );

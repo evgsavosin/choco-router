@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ChocoRouter;
 
-use ChocoRouter\Dispatcher\{Dispatcher, DispatcherInterface, DispatcherResult};
+use ChocoRouter\Resolver\{Resolver, ResolverResult, ResolverInterface};
 use ChocoRouter\Exceptions\HttpException;
 
 use function strpos;
@@ -17,13 +17,13 @@ use function rawurldecode;
  */
 final class Router 
 {
-    protected Dispatcher $dispatcher;
+    protected Resolver $resolver;
 
     public function __construct(
         protected RouteCollection $collection
     ) {
         $this->collection = $collection;
-        $this->dispatcher = new Dispatcher($this->collection);
+        $this->resolver = new Resolver($this->collection);
     }
     
     public function getCollection(): RouteCollection
@@ -31,15 +31,15 @@ final class Router
         return $this->collection;
     }
 
-    public function getDispatcher(): DispatcherInterface
+    public function getResolver(): ResolverInterface
     {
-        return $this->dispatcher;
+        return $this->resolver;
     }
 
     /**
      * @throws HttpException
      */
-    public function handle(?string $httpMethod = null, ?string $uri = null): DispatcherResult
+    public function resolve(?string $httpMethod = null, ?string $uri = null): ResolverResult
     {
         if ($httpMethod === null) {
             throw new HttpException('Bad request', HttpException::BAD_REQUEST);
@@ -55,7 +55,7 @@ final class Router
 
         $uri = rawurldecode($uri);
 
-        if (($result = $this->dispatcher->dispatch($httpMethod, $uri)) === null) {
+        if (($result = $this->resolver->resolve($httpMethod, $uri)) === null) {
             throw new HttpException('Route not found', HttpException::NOT_FOUND);
         }
 

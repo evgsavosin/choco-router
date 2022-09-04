@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ChocoRouter\Dispatcher;
+namespace ChocoRouter\Resolver;
 
 use ChocoRouter\Route;
 
@@ -10,7 +10,7 @@ use ChocoRouter\Route;
  * @since 2.0
  * @author Evgeny Savosin <evg@savosin.dev>
  */
-class DispatcherResult
+class ResolverResult
 {
     public function __construct(
         protected Route $route,
