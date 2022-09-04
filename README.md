@@ -1,18 +1,20 @@
 # Choco Router
-[![PHPUnit Tests](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml/badge.svg)](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml) [![License](https://img.shields.io/badge/license-MIT-green.svg?logo=github)](https://img.shields.io/badge/license-MIT-green.svg?logo=github) [![License](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github)](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github) 
+[![PHPUnit Tests](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml/badge.svg)](https://github.com/evgsavosin/choco-router/actions/workflows/phpunit.yml) [![License](https://img.shields.io/badge/license-MIT-green.svg?logo=github)](https://img.shields.io/badge/license-MIT-green.svg?logo=github) [![PHP](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github)](https://img.shields.io/badge/php-8.1-4f5b93.svg?logo=github) 
 
-Modern router for PHP based on regex expression with cache system. Caching has driver support: file system, APCum, Memcached . Defining routes is possible both using methods and attributes from PHP 8.0.
+Modern router for PHP based on regex expression with cache system. Caching has driver support: file system, APCum, Memcached. Defining routes is possible both using methods and attributes from PHP 8.0.
 
 ## Requirements
-- PHP 8.0 or newer
+- PHP 8.1 or newer;
+- APCu (optional);
+- Memcached (optional).
 
 ## Install
 Install via composer:
 ```php
-composer require evgsavosin/simple-routing
+composer require evgsavosin/choco-router
 ```
 
-## Usage
+## Usage (deprecated)
 Basic usage:
 ```php
 <?php 
