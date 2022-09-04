@@ -7,17 +7,9 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use ChocoRouter\Cache\Cache;
 use ChocoRouter\Cache\CacheKey;
-use ChocoRouter\Cache\Drivers\ApcuDriver;
 use ChocoRouter\Cache\Drivers\FileDriver;
-use ChocoRouter\Cache\Drivers\MemcachedDriver;
-use ChocoRouter\Cache\NotInstalledDriverException;
-use InvalidArgumentException;
 
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertIsObject;
-use function PHPUnit\Framework\assertSame;
-use function PHPUnit\Framework\assertTrue;
 
 final class СacheTest extends TestCase
 {
