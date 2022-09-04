@@ -64,4 +64,4 @@ jobs:
         run: 'composer config minimum-stability dev && composer update --no-interaction --no-progress'
 
       - name: 'Tests'
-        run: 'make phpunit'
+        run: 'vendor/bin/phpunit'
