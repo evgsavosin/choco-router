@@ -1,7 +1,7 @@
 {
-    "name": "evgsavosin/simple-routing",
-    "description": "Simple routing on regex expression.",
-    "keywords": ["routing", "simple-routing"],
+    "name": "evgsavosin/choco-router",
+    "description": "Modern router for PHP based on regex expression with cache system.",
+    "keywords": ["router", "php", "fast-route", "cache route", "routing", "simple-routing", "apcu", "memcached", "php82", "php-router"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -12,8 +12,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.1",
-        "psr/simple-cache": "3.0.x-dev"
+        "php": ">=8.1"
     },
     "autoload": {
         "psr-4": {
