@@ -14,62 +14,132 @@ Install via composer:
 composer require evgsavosin/choco-router
 ```
 
-## Usage (deprecated)
-Basic usage:
+## Usage
+### Basic usage
+To use it is necessary to define the call of classes using for example PSR-11 implementation.
 ```php
 <?php 
+
+declare(strict_types=1);
+
 require 'vendor/autoload.php';
 
-use ChocoRouter\Router;
-use ChocoRouter\Exceptions\HttpException;
+use ChocoRouter\SimpleRouter;
+use ChocoRouter\HttpMethod;
 
-// Create router instance
-$router = new Router();
+$router = new SimpleRouter();
 
-// Add route with GET method
-$router->get('/foo', 'foo');
-$router->get('/foo/bar', function () {
-  // ...
-});
+$router->addRoute(HttpMethod::GET, '/foo', fn (): string => 'Foo!' );
+$router->addRoute(
+    HttpMethod::POST, 
+    '/foo/{bar}', 
+    fn (mixed $value): string => "Foo bar and {$value}!",
+    ['bar' => '[0-9]+']
+);
 
 try {
-    $result = $router->dispatch(
-      $_SERVER['REQUEST_METHOD'], 
-      $_SERVER['REQUEST_URI']
-    );
-    
-    // Call class method or function
-    call_user_func($result['handler'], $result['args']);
-} catch (HttpException $e) {
-    if ($e->getCode() == HttpException::NOT_FOUND) {
-        // Handle not found page
-    }
-}
+    $router->resolve(
+        $_SERVER['REQUEST_METHOD'], 
+        $_SERVER['REQUEST_URI']
+    )->callableResolve(function (mixed $handler, array $arguments): mixed {
+        if (is_string($handler)) {
+            [$controllerName, $methodName] = explode('@', $handler);
 
-// Declare function
-function foo(array $args) {
-  // ...
+            // PSR-11 implementation for classes: controllers, actions and etc...
+        } elseif (is_callable($handler)) {
+            $handler(...$arguments);
+        }
+    }); 
+} catch (HttpException $e) {
+    if ($e->getCode() === HttpException::NOT_FOUND) {
+        // Handle 404...
+    } else if ($e->getCode() === HttpException::BAD_REQUEST) {
+        // Handle 400...
+    }
 }
 ```
 
+### Route definition
+The route can be defined with method: `addRoute(HttpMethod $httpMethod, string $uri, mixed $handler, array $parameters = []): void`. Parameters can be passed `{bar}` or `{bar?}` with regular expressions `['bar' => '[0-9]+']`.
+Real example:
+```php
+$router->addRoute(HttpMethod::GET, '/foo/{bar?}', 'foo-bar', ['bar' => '[0-9]+']);
+```
+> A question mark means the parameter is optional.
 
-Available methods:
-```php 
-$router->group('/foo', function () use ($router) {
-    $router->get('/bar', 'foo');
-    $router->post('/bar', 'foo');
-    $router->delete('/bar', 'foo');
-    $router->put('/bar', 'foo');
-    $router->map(['POST', 'GET'], '/bar/baz', 'foo');
+The route group is defined using `addGroup(string $prefix, callable $callback): void` method. Real example: 
+```php
+$router->addGroup('/gorge', function (RouteCollection $r): void {
+    $router->addRoute(HttpMethod::GET, '/foo/{bar?}', 'foo-bar', ['bar' => '[0-9]+']);
 });
 ```
 
-Parameters:
+### HTTP Methods
+
+Full list of methods:
+
+```php 
+HttpMethod::CONNECT
+HttpMethod::HEAD
+HttpMethod::GET
+HttpMethod::POST
+HttpMethod::PUT
+HttpMethod::DELETE
+HttpMethod::OPTIONS
+```
+
+### Configuration
+
+You can set the configuration when initializing a simple router:
 ```php
-$router->get('/foo/{bar}/{baz?}', 'foo', [
-  'bar' => '[a-zA-Z]',
-  'baz' => '[0-9]'
+$router = new SimpleRouter([
+    'cacheDisable' => false,
+    'cacheDriver' => FileDriver::class,
+    'cacheOptions' => [] 
+
+    /*
+        For memcached driver, there passed array of servers. 
+        For file driver, there passed path to cache directory.
+    */
 ]);
 ```
 
-> A question mark means the parameter is optional
+### Attributes
+
+The router supports attributes from PHP 8.0. Example:
+
+```php 
+use App\Action\FooAction;
+
+$router = new SimpleRouter();
+$router->load([FooAction::class]);
+$router->resolve(/*...*/)->callableResolve(/*...*/);
+```
+
+### Cache
+
+Router has support cache system with defined drivers:
+- `ChocoRouter\Cache\Drivers\FileDriver::class`;
+- `ChocoRouter\Cache\Drivers\ApcuDriver::class`;
+- `ChocoRouter\Cache\Drivers\MemcachedDriver::class`.
+
+For use cache move definition routes to cache callback:
+```php 
+$router = new SimpleRouter([
+    'cacheDriver' => FileDriver::class
+]);
+
+$router->cache(static function (RouteCollection $r): void {
+    $r->addRoute(HttpMethod::GET, '/foo/{bar}', App\Actions\FooAction::class, ['bar' => '[0-9]+']);
+});
+
+$router->resolve(/*...*/)->callableResolve(/*...*/);
+```
+
+## Contributing
+
+The author has not yet had time to write instructions, but any pull request or issue will be glad.
+
+## License
+
+Choco Router has MIT License.

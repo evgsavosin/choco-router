@@ -36,7 +36,10 @@ class Resolver implements ResolverInterface
                 return new ResolverResult(
                     $route, 
                     $uri,
-                    $this->matchParameters($route->getParameters(), $matches)
+                    $this->matchParameters(
+                        $route->getParameters(), 
+                        $matches ?? []
+                    )
                 );
             }
         }
@@ -44,8 +47,12 @@ class Resolver implements ResolverInterface
         return null;
     }
 
-    public function matchParameters(array $parameters, array $values): array
+    public function matchParameters(array $parameters, array $values = []): ?array
     {
+        if ($parameters === []) {
+            return [];
+        }
+
         $i = 1;
         $parameterValues = [];
 

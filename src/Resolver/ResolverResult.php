@@ -37,4 +37,9 @@ class ResolverResult
     {
         return $this->parameters;
     }
+
+    public function callableResolve(callable $handler): mixed
+    {
+        return $handler($this->getHandler(), $this->getParameters());
+    }
 }

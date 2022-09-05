@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ChocoRouter;
 
+use ChocoRouter\Attribute\AttributeLoader;
 use ChocoRouter\Cache\{Cache, CacheKey, DisableCacheException};
 use ChocoRouter\Resolver\ResolverResult;
 use Closure;
@@ -30,6 +31,12 @@ final class SimpleRouter
 
         $collection = new RouteCollection();
         $this->router = new Router($collection);
+        $this->attributeLoader = new AttributeLoader($collection);
+    }
+
+    public function load(array $classes): void
+    {
+        $this->attributeLoader->load($classes);
     }
 
     public function getCollection(): RouteCollection
